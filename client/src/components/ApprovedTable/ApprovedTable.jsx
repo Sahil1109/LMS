@@ -131,6 +131,7 @@ const ApprovedTable=()=>{
         <CustomHeader>
           <TableRow>
             <CustomHeaderCell>Leave Type</CustomHeaderCell>
+            <CustomHeaderCell align="right">Employee Name</CustomHeaderCell>
             <CustomHeaderCell align="right">From Date</CustomHeaderCell>
             <CustomHeaderCell align="right">To Date</CustomHeaderCell>
             <CustomHeaderCell align="right">No. of Days</CustomHeaderCell>

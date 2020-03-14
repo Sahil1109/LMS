@@ -9,6 +9,7 @@ const ApprovedTableRow = props => {
       <TableCell component="th" scope="row">
         {stringCap(props.row.leaveType)}
       </TableCell>
+      <TableCell align="right">{stringCap(props.row.firstName)}</TableCell>
       <TableCell align="right">{getStringDate(props.row.startDate)}</TableCell>
       <TableCell align="right">{getStringDate(props.row.endDate)}</TableCell>
       <TableCell align="right">{props.row.noofdays}</TableCell>

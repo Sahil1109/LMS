@@ -8,6 +8,7 @@ import EmpDashboard from "./pages/EmpDashboard/EmpDashboard";
 import Login from "./pages/Login/Login";
 import LeaveApproval from './pages/LeaveApproval/LeaveApproval'
 import ApplyLeave from './pages/ApplyLeave/ApplyLeave'
+import EmployeeManager from './pages/EmployeeManager/EmployeeManager'
 //css file import
 import "./App.css";
 
@@ -49,6 +50,9 @@ function App(props) {
               </Route>
               <Route exact path="/addEmployee">
                 <AddEmployee></AddEmployee>
+              </Route>
+              <Route exact path="/employeeManager">
+                <EmployeeManager></EmployeeManager>
               </Route>
             </Switch>
           </div>
