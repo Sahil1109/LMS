@@ -1,34 +1,26 @@
-#saveBtn{
-    background-color: rgb(96, 238, 68);
-    padding-left: 10px;
-    padding-top: 4px;
-    padding-right: 10px;
-    padding-bottom: 4px;
-    border-radius: 5;
+#addempform{
+    align-items: center;
+    justify-items: center;
+    display: contents;
 }
-#saveBtn:hover{
-    background-color: #4CAF50; /* Green */
+
+root {
+      margin: 16px;
+      width: 100%;
+      padding: 16px;
+      flex-grow: 1;
+  }
+.item{
+    display: inline-flex;
+    align-items: center;
+}
+.date-padding{
+    padding-top: 0;
+}
+#saveButton  span{
     color: white;
 }
 
-#cancelBtn{
-    background-color: rgb(255, 89, 47);
-    padding-left: 10px;
-    padding-top: 4px;
-    padding-right: 10px;
-    padding-bottom: 4px;
-    border-radius: 5;
-}
-#cancelBtn:hover{
-    background-color: rgb(233, 54, 31); /* Green */
+#cancelButton span{
     color: white;
-}
-
-/* label{
-    font-weight: lighter;
-    font-family: 'Courier New', Courier, monospace;
-} */
-
-#mandatory{
-    color: red;
 }
