@@ -112,16 +112,18 @@ const PendingTable = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
   let [ahistory, setAhistory] = useContext(ApprovalHistoryContext);
+  let rev_history
   console.log('pending approval history:',ahistory)
   let emptyRows=null 
   const setEmptyRows=()=>{
+    /*we are doing this so that pending leaves in the end will be pushed to front 
+      as in pending table , we have to go to next page to see leaves*/
+    rev_history=ahistory.reverse()
     emptyRows =rowsPerPage - Math.min(rowsPerPage, ahistory.length - page * rowsPerPage);
   }
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -149,21 +151,22 @@ const PendingTable = () => {
         <CustomHeader>
           <TableRow>
             <CustomHeaderCell>Leave Type</CustomHeaderCell>
-            <CustomHeaderCell align="right">Employee Name</CustomHeaderCell>
-            <CustomHeaderCell align="right">From Date</CustomHeaderCell>
-            <CustomHeaderCell align="right">To Date</CustomHeaderCell>
-            <CustomHeaderCell align="right">No. of Days</CustomHeaderCell>
+            <CustomHeaderCell align="center">Employee Name</CustomHeaderCell>
+            <CustomHeaderCell align="center">From Date</CustomHeaderCell>
+            <CustomHeaderCell align="center">To Date</CustomHeaderCell>
+            <CustomHeaderCell align="center">No. of Days</CustomHeaderCell>
             <CustomHeaderCell align="center">Action</CustomHeaderCell>
           </TableRow>
         </CustomHeader>
         <TableBody>
           {(rowsPerPage > 0
-            ? ahistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : ahistory
+          //need to check this code to see if any more variables need to be changed
+            ? rev_history.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : rev_history
           ).map(row => {
             console.log('checking:',row)
             if(row.status==="pending"){
-              return <PendingTableRow onStatusChange={onStatusChange} key={ahistory.indexOf(row)} row={row} />
+              return <PendingTableRow onStatusChange={onStatusChange} key={rev_history.indexOf(row)} row={row} />
             }else{
               return
             }

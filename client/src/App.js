@@ -56,10 +56,10 @@ function App(props) {
               </Route>
             </Switch>
           </div>
-
+          
          
         </div>
-        
+        <Footer/>
       </div>
     </Router>
   ) : (

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Grid, Paper } from "@material-ui/core/";
 import LeaveList from "../../components/LeaveList/LeaveList";
 import LeaveTable from "../../components/LeaveTable/LeaveTable";
+import Charts from "../../components/Charts/Charts"
 //importing contexts
 import { EmpIdContext } from "../../contexts/EmpId/EmpIdContext";
 import { EmployeeContext } from "../../contexts/Emp/EmployeeContext";
@@ -54,7 +55,11 @@ export default function EmpDashboard() {
           <LeaveList />
         </Grid>
         <Grid item xs={6}>
-          <Paper align="center">Bar Graph</Paper>
+          {/*here i ahve set the height because otherwise it was getting shorter or longer
+            them leave list table , so it is set dynamically*/}
+          <Paper align="center" style={{height:"210px", boxSizing:"border-box", padding:"8px"}}>
+            <Charts/>
+          </Paper>
         </Grid>
         <Grid item xs={12}>
           <LeaveTable />

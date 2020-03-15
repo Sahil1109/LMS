@@ -7,7 +7,7 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import { Link } from "@material-ui/core/";
 import EditIcon from "@material-ui/icons/Edit";
-import getStringDate from '../../handlers/StringData'
+import getStringDate from "../../handlers/StringData";
 
 export default function EmployeeManagerTable() {
   const url = "http://localhost:5000/employee";
