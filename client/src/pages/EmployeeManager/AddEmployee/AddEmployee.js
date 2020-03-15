@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-// import axios from "axios";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -77,19 +78,26 @@ function Alert(props) {
 }
 
 const AddEmployee = () => {
+  const classes = useStyles();
+  const { register, handleSubmit } = useForm();
   const [Snackopen, setSnackOpen] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
   const [warningMsg, setWarningMsg] = useState("");
-  const classes = useStyles();
-  const { register, handleSubmit } = useForm();
-  let [doj, setDoj] = useState(new Date());
-  let [dob, setDob] = useState(new Date());
-  let [doa, setDoa] = useState(new Date());
   const [status, setStatus] = useState("active");
   const [role, setRole] = useState("employee");
   const [gender, setGender] = useState("male");
   const [stream, setStream] = useState("a");
+  let [doj, setDoj] = useState(new Date());
+  let [dob, setDob] = useState(new Date());
+  let [doa, setDoa] = useState(new Date());
 
+  // const url = "http://localhost:5000/employee";
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   axios.get(url).then(json => setData(json.data));
+  // }, []);
+
+  // const [approver, setApprover] = useState([data.firstName]);
   const handleStatusChange = event => {
     setStatus(event.target.value);
   };
@@ -111,11 +119,27 @@ const AddEmployee = () => {
   const handleDoaChange = event => {
     setDoa(event);
   };
+  // const handleApproverChange = event => {
+  //   setApprover(event.target.value);
+  //   console.log(approver);
+  // };
   const handleSnackClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
     setSnackOpen(false);
+  };
+  const history = useHistory();
+
+  const loadAnotherPage = page => {
+    switch (page) {
+      case "employeeManager":
+        history.push("/employeeManager");
+        break;
+      default:
+        history.push("/");
+        break;
+    }
   };
   const onSubmit = data => {
     let obj = {
@@ -123,40 +147,43 @@ const AddEmployee = () => {
       middleName: data.middleName,
       lastName: data.lastName,
       email: data.email,
+      empId: Number(data.empId),
+      doj: doj.toISOString(),
+      role: role.toLowerCase(),
+      approver: data.approver,
+      status: status.toLowerCase(),
       gender: gender.toLowerCase(),
+      password: data.Password
+      // doa: "doa.toISOString()",
+      // stream: stream.toLowerCase(),
       // dob: dob.toISOString(),
       // mobileNo: data.mobileNo,
-      empId: data.empId,
-      doj: doj.toISOString(),
-      // doa: "doa.toISOString()",
-      status: status.toLowerCase(),
-      // stream: stream.toLowerCase(),
-      approver: data.approver,
-      role: role.toLowerCase(),
       // emergencyName: data.emergencyName,
       // emergencyContact: data.emergencyContact,
-      password: data.Password,
-      confirmPassword: data.confirmPassword
+      // confirmPassword: data.confirmPassword
     };
-    if (obj.password !== obj.confirmPassword) {
-      console.log("password error");
-      setWarningMsg("Password must be same");
-      setWarningOpen(true);
-    }
-    if (obj.password === obj.confirmPassword) {
-      console.log("password same");
-      setSnackOpen(true);
-      console.log(obj);
-    }
-    // axios
-    //   .post("http://10.9.8.151:5000/employee", obj)
-    //   .then(res => {
-    //     console.log("Employee added");
-    //   })
-    //   .catch((err, data) => {
-    //     console.log("error while adding");
-    //     console.log(err.response);
-    //   });
+    // if (obj.password !== obj.confirmPassword) {
+    //   console.log("password error");
+    //   setWarningMsg("Password must be same");
+    //   setWarningOpen(true);
+    // }
+    // if (obj.password === obj.confirmPassword) {
+    //   console.log("password same");
+    //   setSnackOpen(true);
+    // }
+    console.log(obj);
+    axios
+      .post("http://localhost:5000/employee", obj)
+      .then(res => {
+        console.log("Employee added");
+        setSnackOpen(true);
+      })
+      .catch((err, data) => {
+        setWarningMsg("Error while adding employee");
+        setWarningOpen(true);
+        console.log("error while adding");
+        console.log(err.response);
+      });
   }; // your form submit function which will invoke after successful validation
 
   return (
@@ -341,7 +368,6 @@ const AddEmployee = () => {
               value={stream}
               onChange={handleStreamChange}
               variant="outlined"
-              style={{ minWidth: "60px" }}
             >
               {streams.map(option => (
                 <MenuItem key={option.value} value={option.value}>
@@ -358,6 +384,21 @@ const AddEmployee = () => {
               variant="outlined"
               name="approver"
             />
+            {/* <TextField
+              id="outlined-select"
+              select
+              required="true"
+              label="Approver"
+              value={approver}
+              onChange={handleApproverChange}
+              variant="outlined"
+            >
+              {data.map(option => (
+                <MenuItem key={option.id} value={option.id}>
+                  {option.firstName}
+                </MenuItem>
+              ))}
+            </TextField> */}
           </Grid>
 
           <Grid item xs={3}>
@@ -438,6 +479,9 @@ const AddEmployee = () => {
               color="secondary"
               type="submit"
               id="cancelButton"
+              onClick={() => {
+                loadAnotherPage("employeeManager");
+              }}
             >
               Cancel
             </Button>

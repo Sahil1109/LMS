@@ -1,0 +1,45 @@
+#tableEmp table{
+    /* border:1px solid black; */
+    box-shadow: 3px 3px 8px black;
+    border-radius: 5px;
+    display: block;
+    width:80vw;
+    
+    height: 75vh;
+    overflow-y: scroll;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+td , th{
+    box-sizing: border-box;
+    width:13vw;
+    height: 7vh;
+    padding:1rem;
+    margin:0;
+    text-align: center;
+    font-size:0.9rem;
+    
+}
+
+#thrEmp{
+    background-color:#54007A;
+    color: white;
+}
+
+#pen_img{
+    width:2vw;
+    cursor: pointer;
+}
+
+#addEmp{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: gainsboro;
+    border-radius: 5px;
+    width: auto;
+}
